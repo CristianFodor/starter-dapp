@@ -14,6 +14,7 @@ const Navbar = () => {
     <div className="navbar px-4 py-3 flex-nowrap">
       <div className="container-fluid flex-nowrap">
         <div className="d-flex align-items-center mr-3">
+          {/*<img className="img-responsive" src="assets/img/logo_w_text_white_fat.svg" alt="Staking Agency Logo"/>*/}
           <Logo className="logo mr-2 flex-shrink-0" />
           <span className="h5 text-nowrap mb-0 p-0">Delegation Manager</span>
         </div>
