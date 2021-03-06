@@ -16,22 +16,12 @@ const MyDelegation = () => {
   const dispatch = useDispatch();
   const { getClaimableRewards, getUserActiveStake } = contractViews;
   const [userActiveStake, setUserActiveStake] = React.useState('0');
+  const [userTotalBalance, setUserTotalBalance] = React.useState('0');
   const [userActiveNominatedStake, setUserActiveNominatedStake] = React.useState('0');
   const [claimableRewards, setClaimableRewards] = React.useState('0');
   const [displayRewards, setDisplayRewards] = React.useState(false);
   const [displayUndelegate, setDisplayUndelegate] = React.useState(false);
   const [balance, setBalance] = useState('0');
-
-  useEffect(() => {
-    dapp.proxy.getAccount(new Address(address)).then(value => setBalance(
-      denominate({
-        denomination,
-        decimals,
-        input: value.balance.toString(),
-        showLastNonZeroDecimal: false,
-      }) || '0'
-    ));
-  }, [address, dapp.proxy]);
 
   const getAllData = () => {
     dispatch({ type: 'loading', loading: true });
@@ -78,6 +68,25 @@ const MyDelegation = () => {
 
   React.useEffect(getAllData, []);
 
+  useEffect(() => {
+    dapp.proxy.getAccount(new Address(address)).then(value => setBalance(
+      denominate({
+        denomination,
+        decimals,
+        input: value.balance.toString(),
+        showLastNonZeroDecimal: false,
+      }) || '0'
+    ));
+  }, [address, dapp.proxy]);
+
+  useEffect(() => {
+    setUserTotalBalance(
+      (Number(balance.replace(/,/g, ''))
+        + Number(userActiveStake.replace(/,/g, ''))
+        + Number(claimableRewards.replace(/,/g, ''))).toString()
+    );
+  }, [balance, userActiveStake, claimableRewards]);
+
   return (
     <>
       {loading ? (
@@ -87,7 +96,8 @@ const MyDelegation = () => {
           <div className="card mt-spacer">
             <div className="card-body p-spacer">
               <div className="d-flex flex-wrap align-items-center justify-content-between">
-                <p className="h6 mb-0">My Wallet Balance: {balance} {egldLabel}</p>
+                <p className="h6 mb-0">Wallet Balance: {balance} {egldLabel}</p>
+                <p className="h6 mb-0 text-left">Total Balance: {userTotalBalance} {egldLabel}</p>
               </div>
             </div>
           </div>
