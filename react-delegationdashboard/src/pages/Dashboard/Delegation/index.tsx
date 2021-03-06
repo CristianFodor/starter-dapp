@@ -5,11 +5,13 @@ import DelegateAction from '../Actions/DelegateAction';
 import UndelegateAction from '../Actions/UndelegateAction';
 import { contractViews } from 'contracts/ContractViews';
 import ClaimRewardsAction from '../Actions/ClaimRewardsAction';
-import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
+import {faCircleNotch, faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 import State from 'components/State';
 import { denomination, decimals } from 'config';
 import {useEffect, useState} from 'react';
 import {Address} from '@elrondnetwork/erdjs/out';
+import {OverlayTrigger, Tooltip} from 'react-bootstrap';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 const MyDelegation = () => {
   const { dapp, address, egldLabel, delegationContract, loading } = useContext();
@@ -97,7 +99,19 @@ const MyDelegation = () => {
             <div className="card-body p-spacer">
               <div className="d-flex flex-wrap align-items-center justify-content-between">
                 <p className="h6 mb-0">Wallet Balance: {balance} {egldLabel}</p>
-                <p className="h6 mb-0 text-left">Total Balance: {userTotalBalance} {egldLabel}</p>
+                <p className="h6 mb-0 text-left">Total Balance: {userTotalBalance} {egldLabel}
+                  <OverlayTrigger
+                    placement="top"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={props => (
+                      <Tooltip id="button-tooltip" {...props}>
+                        This is a sum of Wallet Balance, Claimable Rewards and total Tokens delegated
+                      </Tooltip>
+                    )}
+                  >
+                    <FontAwesomeIcon icon={faInfoCircle} className="text-white ml-1 max-height-icon" size={'xs'}/>
+                  </OverlayTrigger>
+                </p>
               </div>
             </div>
           </div>
