@@ -31,7 +31,7 @@ export interface StateType {
   decimals: number;
   account: AccountType;
   explorerAddress: string;
-  delegationContract?: string;
+  delegationContract: string;
   totalActiveStake: string;
   numberOfActiveNodes: string;
   numUsers: number;
