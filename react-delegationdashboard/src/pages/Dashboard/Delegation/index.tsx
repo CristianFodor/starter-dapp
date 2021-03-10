@@ -134,13 +134,21 @@ const MyDelegation = () => {
                 />
               ) : (
                 <div className="m-auto text-center py-spacer">
-                  <div>
-                    <p className="m-0">Active Delegation</p>
-                    <p className="h4">
-                      {userActiveStake}{' '}
-                      {egldLabel}
-                    </p>
-                  </div>
+                  {userActiveStake === String(0) ? (
+                    <State
+                      title="No Stake Yet"
+                      description="Welcome to our platform!"
+                      action={<DelegateAction />}
+                    />
+                  ) : (
+                    <div>
+                      <p className="m-0">Active Delegation</p>
+                      <p className="h4">
+                        {userActiveStake}{' '}
+                        {egldLabel}
+                      </p>
+                    </div>
+                  )}
                   <div>
                     <p className="text-muted">
                       {claimableRewards}{' '}
@@ -151,30 +159,6 @@ const MyDelegation = () => {
                 </div>
               )}
             </div>
-            <div className="m-auto text-center py-spacer">
-            {userActiveStake === String(0) ? (
-              <State
-                title="No Stake Yet"
-                description="Welcome to our platform!"
-                action={<DelegateAction />}
-              />
-            ) : (
-                <div>
-                  <p className="m-0">Active Delegation</p>
-                  <p className="h4">
-                    {userActiveStake}{' '}
-                    {egldLabel}
-                  </p>
-                </div>
-              )}
-                <div>
-                  <p className="text-muted">
-                    {claimableRewards}{' '}
-                    {egldLabel} Claimable rewards
-                  </p>
-                </div>
-                {displayRewards ? <ClaimRewardsAction /> : null}
-              </div>
           </div>
         </div>
       )}
