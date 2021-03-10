@@ -31,7 +31,7 @@ export interface StateType {
   decimals: number;
   account: AccountType;
   explorerAddress: string;
-  delegationContract: string;
+  delegationContract?: string;
   totalActiveStake: string;
   numberOfActiveNodes: string;
   numUsers: number;
@@ -65,7 +65,6 @@ export const emptyContractOverview: ContractOverview = {
 
 export const initialState = () => {
   const sessionNetwork = network || defaultNetwork;
-  console.log(sessionNetwork);
   return {
     denomination: denomination,
     decimals: decimals,
