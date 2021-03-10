@@ -65,6 +65,7 @@ export const emptyContractOverview: ContractOverview = {
 
 export const initialState = () => {
   const sessionNetwork = network || defaultNetwork;
+  console.log(sessionNetwork);
   return {
     denomination: denomination,
     decimals: decimals,
